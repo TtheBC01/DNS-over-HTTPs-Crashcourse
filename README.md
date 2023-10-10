@@ -1,6 +1,8 @@
 # How to use DNS Wire Format for DNS over HTTPS queries. 
 
-[DNS over HTTPs](https://datatracker.ietf.org/doc/html/rfc8484) (DoH) allows tamper-resistant client-side interrogation of DNS records. Some DNS providers, like Cloudflare, support [JSON-structured queries](https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/dns-json/) which are quite simple to construct and interpret. However, most DNS providers supporting DoH require queries to be submitted in DNS Wire Format (DWF) as specified in [RFC 1035](https://datatracker.ietf.org/doc/html/rfc1035). While DWF is quite efficient in terms of communication overhead, it can be difficult to piece together if you are unfamiliar with it since there are few online resources that present it in an accessible fashion. This post is a  practical crash course in constructing DWF-compatible DNS queries to leverage DoH in you client-side applications. 
+[DNS over HTTPs](https://datatracker.ietf.org/doc/html/rfc8484) (DoH) allows tamper-resistant client-side interrogation of DNS records. Some DNS providers, like Cloudflare, support [JSON-structured queries](https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/dns-json/) which are quite simple to construct and interpret. However, most DNS providers supporting DoH require queries to be submitted in DNS Wire Format (DWF) as specified in [RFC 1035](https://datatracker.ietf.org/doc/html/rfc1035). 
+
+While DWF is quite efficient in terms of communication overhead, it can be difficult to piece together if you are unfamiliar with it since there are few online resources that present it in an accessible fashion. This post is a  practical crash course in constructing DWF-compatible DNS queries to leverage DoH in you client-side applications. 
 
 ## Anatomy of a DNS Message
 
