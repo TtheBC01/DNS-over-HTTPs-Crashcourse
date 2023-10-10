@@ -6,7 +6,8 @@ While DWF is quite efficient in terms of communication overhead, it can be diffi
 
 ## Anatomy of a DNS Message
 
-A DNS message has 5 fields, each of which are binary encoded in groups of 2-byte frames:
+A user client can issue queries to any DNS provider that supports DNS over HTTPS via a vanilla fetch or curl call. However, aueries must be structured as a DNS message. A DNS message has 5 fields, each of which are binary encoded in groups of 2-byte frames:
+
 - header - 6 frames (we'll construct this once and use it over and over)
 - question field - 2 frames + variable byte length Query field (we'll walk through constructing this here)
 - answer field - 5 frames + variable length Name & variable length Record Data (you'll only bother with this field in the DNS provider's response payload)
