@@ -26,8 +26,8 @@ So since we will always be making a single query (not generating a response) and
 
 You can save this binary string and use it over and over for single DoH queries. 
 
-**NOTE**
-The first two bytes are arbitrary, set them to whatever you want. 
+> [!NOTE] 
+> The first two bytes are arbitrary, set them to whatever you want. 
 
 ## The Query Field
 
