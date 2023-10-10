@@ -6,7 +6,7 @@ While DWF is quite efficient in terms of communication overhead, it can be diffi
 
 ## Anatomy of a DNS Message
 
-A user client can issue queries to any DNS provider that supports DNS over HTTPS via a vanilla fetch or curl call. However, aueries must be structured as a DNS message. A DNS message has 5 fields, each of which are binary encoded in groups of 2-byte frames:
+A user client can issue queries to any DNS provider that supports DNS over HTTPS via a vanilla fetch or curl call. However, queries must be structured as a DNS message. A DNS message has 5 fields, each of which are binary encoded in groups of 2-byte frames:
 
 - header - 6 frames (we'll construct this once and use it over and over)
 - question field - 2 frames + variable byte length Query field (we'll walk through constructing this here)
@@ -18,7 +18,7 @@ To leverage DoH in a user application, you need only bother with the header (sin
 
 ## The Header Field
 
-The header contains an arbitrary reference id (1 frame or 2 bytes), some metadata on the nature of the message, like is the message a query or a response, etc. (1 frame), the number of Query entries in the query field (1 frame), the number of resource records contained in the answer field (1 frame), the number of name server resource records in the authority field (1 frame), and the number of entries in the additional info field (1 frame).
+The header contains an arbitrary reference id (1 frame or 2 bytes), some metadata on the nature of the message, like is the message a query or a response (for our purposes it will always be a query), etc. (1 frame), the number of query entries in the query field (1 frame), the number of resource records contained in the answer field (1 frame), the number of name server resource records in the authority field (1 frame), and the number of entries in the additional info field (1 frame).
 
 So since we will always be making a single query (not generating a response) and we want the DNS provider to recursively pursue the record, our header will likely always look like this (in hex encoded binary):
 
@@ -26,7 +26,8 @@ So since we will always be making a single query (not generating a response) and
 
 You can save this binary string and use it over and over for single DoH queries. 
 
-**NOTE**: the first two bytes are arbitrary, set them to whatever you want. 
+**NOTE**
+The first two bytes are arbitrary, set them to whatever you want. 
 
 ## The Query Field
 
@@ -42,7 +43,8 @@ or in hex encoding like this:
 
 The numbers tell the message reciever how to read the `QNAME` which is terminated with a byte of zeros. 
 
-**NOTE**: the `QNAME` field does not need to be an integer number of frames, i.e, its length may be an odd number of bytes. There is no padding requried to fill out a full frame. 
+**NOTE**
+The `QNAME` field does not need to be an integer number of frames, i.e, its length may be an odd number of bytes. There is no padding requried to fill out a full frame. 
 
 The next frame after `QNAME`, is the type of query, called [`QTYPE`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.2.2). If you want to fetch a TXT record, its `TYPE` is 16 (or `00 10` as a frame of hex): 
 
