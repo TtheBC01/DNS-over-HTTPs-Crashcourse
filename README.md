@@ -64,7 +64,7 @@ and [encoding to base 64](https://cryptii.com/pipes/base64-to-binary) gives us:
 
 `AAABAAABAAAAAAAAA3d3dw1zbmlja2VyZG9vZGxlA2NvbQAAEAAB`
 
-With this, you can construct an DWF-compatible DoH query that is supported by most major DNS providers.
+With this, you can construct an DWF-compatible DoH query for a TXT record attached to www.snickerdoodle.com that is supported by most major DNS providers.
 
 Cloudflare:
 
