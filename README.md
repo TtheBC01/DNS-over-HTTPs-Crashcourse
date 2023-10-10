@@ -29,7 +29,7 @@ You can save this binary string and use it over and over for single DoH queries.
 
 Next, the query field carries the information needed to pass along a complete question to a DNS provider. 
 
-The first `n` frames encode the domain name (called the [`QNAME`](https://datatracker.ietf.org/doc/html/rfc1035#section-4.1.2) which the query is about. Domain names are written like this:
+The first `n` frames encode the domain name, called the [`QNAME`](https://datatracker.ietf.org/doc/html/rfc1035#section-4.1.2), which the query is about. Domain names are written like this:
 
 `3www13snickerdoodle3com0`
 
