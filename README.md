@@ -33,7 +33,7 @@ You can save this binary string and use it over and over for single DoH queries.
 
 Next, the query field carries the information needed to pass along a complete question to a DNS provider. 
 
-The first `n` frames encode the domain name, called the [`QNAME`](https://datatracker.ietf.org/doc/html/rfc1035#section-4.1.2), which the query is about. Domain names are written like this:
+The first `n` frames encode the domain name, called the [`QNAME`](https://datatracker.ietf.org/doc/html/rfc1035#section-4.1.2), which the query is about. A domain name (like www.snickerdoodle.com) is written like this:
 
 `3www13snickerdoodle3com0`
 
@@ -46,15 +46,11 @@ The numbers tell the message reciever how to read the `QNAME` which is terminate
 > [!NOTE] 
 > The `QNAME` field does not need to be an integer number of frames, i.e, its length may be an odd number of bytes. There is no padding requried to fill out a full frame. 
 
-The next frame after `QNAME`, is the type of query, called [`QTYPE`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.2.2). If you want to fetch a TXT record, its `TYPE` is 16 (or `00 10` as a frame of hex): 
-
-So, adding this to the end of our hex encoding from above for `www.snickerdoodle.com`, you'd have:
+The next frame after `QNAME`, is the type of query, called [`QTYPE`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.2.2). If you want to fetch a TXT record, its `TYPE` is 16 (or `00 10` as a frame of hex). So, adding this to the end of our hex encoding from above for `www.snickerdoodle.com`, you'd have:
 
 `03 77 77 77 0d 73 6e 69 63 6b 65 72 64 6f 6f 64 6c 65 03 63 6f 6d 00 00 10`
 
-The final frame of your query section is the class of query, called [`QCLASS`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.2.4). You will almost always be issuing an Internet class query, so its `CLASS` is 1 (or `00 01` as a frame of hex): 
-
-Again concatenating this to the end of our hex encoded domain example gives us:
+The final frame of your query section is the class of query, called [`QCLASS`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.2.4). You will almost always be issuing an Internet class query, so its `CLASS` is 1 (or `00 01` as a frame of hex). Again concatenating this to the end of our hex encoded domain example gives us:
 
 `03 77 77 77 0d 73 6e 69 63 6b 65 72 64 6f 6f 64 6c 65 03 63 6f 6d 00 00 10 00 01`
 
