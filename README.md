@@ -6,7 +6,7 @@ While DWF is quite efficient in terms of communication overhead, it can be diffi
 
 ## Anatomy of a DNS Message
 
-A user client can issue queries to any DNS provider that supports DNS over HTTPS via a vanilla fetch or curl call. However, queries must be structured as a DNS message. A DNS message has 5 fields, each of which are binary encoded in groups of 2-byte frames:
+A user client can issue queries to any DNS provider that supports DNS over HTTPS via a vanilla fetch or curl call. However, queries must be structured as a [DNS message](https://datatracker.ietf.org/doc/html/rfc1035#section-4). A DNS message has 5 fields, each of which are binary encoded in groups of 2-byte frames:
 
 - header - 6 frames (we'll construct this once and use it over and over)
 - question field - 2 frames + variable byte length Query field (we'll walk through constructing this here)
@@ -66,16 +66,28 @@ and [encoding to base 64](https://cryptii.com/pipes/base64-to-binary) gives us:
 
 With this, you can construct an DWF-compatible DoH query for a TXT record attached to www.snickerdoodle.com that is supported by most major DNS providers.
 
-Cloudflare:
+### Cloudflare
 
 ```
 echo -n 'AAABAAABAAAAAAAAA3d3dw1zbmlja2VyZG9vZGxlA2NvbQAAEAAB' | base64 --decode | curl -H 'content-type: application/dns-message' --data-binary @- https://cloudflare-dns.com/dns-query -o - | hexdump -C
 ```
 
-OpenDNS:
+```
+await fetch("https://cloudflare-dns.com/dns-query?dns=AAABAAABAAAAAAAAA3d3dw1zbmlja2VyZG9vZGxlA2NvbQAAEAAB", {
+  headers: {
+    accept: "application/dns-message"
+  }
+})
+```
+
+### Google
 
 ```
-curl -H 'accept: application/dns-message' 'https://doh.opendns.com/dns-query?dns=AAABAAABAAAAAAAAA3d3dw1zbmlja2VyZG9vZGxlA2NvbQAAEAAB' | hexdump -C
+await fetch("https://dns.google/dns-query?dns=AAABAAABAAAAAAAAA3d3dw1zbmlja2VyZG9vZGxlA2NvbQAAEAAB", {
+  headers: {
+    accept: "application/dns-message"
+  }
+})
 ```
 
 Now, once you recieve a response, you will want to match the ID bits in the 
