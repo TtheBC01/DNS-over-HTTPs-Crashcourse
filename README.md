@@ -46,7 +46,7 @@ The numbers tell the message reciever how to read the `QNAME` which is terminate
 > [!NOTE] 
 > The `QNAME` field does not need to be an integer number of frames, i.e, its length may be an odd number of bytes. There is no padding requried to fill out a full frame. 
 
-The next frame after `QNAME`, is the type of query, called [`QTYPE`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.2.2). If you want to fetch a TXT record, its `TYPE` is 16 (or `00 10` as a frame of hex). So, adding this to the end of our hex encoding from above for `www.snickerdoodle.com`, you'd have:
+The next frame after `QNAME`, is the type of query, called [`QTYPE`](https://datatracker.ietf.org/doc/html/rfc1035#section-3.2.2). If you want to fetch a TXT record, its `TYPE` is 16 (or `00 10` as a frame of hex). So, adding this to the end of our hex encoding from above for www.snickerdoodle.com, you'd have:
 
 `03 77 77 77 0d 73 6e 69 63 6b 65 72 64 6f 6f 64 6c 65 03 63 6f 6d 00 00 10`
 
