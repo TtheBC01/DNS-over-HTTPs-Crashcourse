@@ -56,7 +56,11 @@ The final frame of your query section is the class of query, called [`QCLASS`](h
 
 ## Putting it All Together
 
-Concatenating the header and query fields and [encoding to base 64](https://cryptii.com/pipes/base64-to-binary) gives us:
+Concatenating the header and query fields gives:
+
+`00 00 01 00 00 01 00 00 00 00 00 00 03 77 77 77 0d 73 6e 69 63 6b 65 72 64 6f 6f 64 6c 65 03 63 6f 6d 00 00 10 00 01`
+
+and [encoding to base 64](https://cryptii.com/pipes/base64-to-binary) gives us:
 
 `AAABAAABAAAAAAAAA3d3dw1zbmlja2VyZG9vZGxlA2NvbQAAEAAB`
 
