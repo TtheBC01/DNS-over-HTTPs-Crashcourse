@@ -18,16 +18,27 @@ To leverage DoH in a user application, you need only bother with the header (sin
 
 ## The Header Field
 
-The header contains an arbitrary reference id (1 frame or 2 bytes), some metadata on the nature of the message, like is the message a query or a response (for our purposes it will always be a query), etc. (1 frame), the number of query entries in the query field (1 frame), the number of resource records contained in the answer field (1 frame), the number of name server resource records in the authority field (1 frame), and the number of entries in the additional info field (1 frame).
+The header contains 6 frames:
+
+- 16 bits for an arbitrary reference id, we'll set this to 0 but you can put anything you want
+- 16 bits for specifying various metadata
+  - first bit specifies if the message is a query (0) or response (1)
+  - the next four bits specify an opcode, we will always set them to 0 because we want to issue a query
+  - bits 6 and 7 are only set for response messages
+  - bit 8 tells the DoH server to pursue the resource record recursively, we'll always set this to 1
+  - bit 9 is only set for response messages
+  - bits 10 through 12 are reserved for a future use case of the RFC 1035 standard
+  - bits 13 through 16 are a response code only set in response messages
+- 16 bits for specifying the number of queries in the query field, we'll be setting this to 1
+- 16 bits for specifying the number of resource records in the answer field, we'll be setting this to 0
+- 16 bits for name resource record count, we'll be setting this to 0
+- 16 bits for the number of additional info records in the additional info field
 
 So since we will always be making a single query (not generating a response) and we want the DNS provider to recursively pursue the record, our header will likely always look like this (in hex encoded binary):
 
 `00 00 01 00 00 01 00 00 00 00 00 00`
 
 You can save this binary string and use it over and over for single DoH queries. 
-
-> [!NOTE] 
-> The first two bytes are arbitrary, set them to whatever you want. 
 
 ## The Query Field
 
@@ -54,7 +65,7 @@ The final frame of your query section is the class of query, called [`QCLASS`](h
 
 `03 77 77 77 0d 73 6e 69 63 6b 65 72 64 6f 6f 64 6c 65 03 63 6f 6d 00 00 10 00 01`
 
-## Putting it All Together
+## Putting It All Together
 
 Concatenating the header and query fields gives:
 
