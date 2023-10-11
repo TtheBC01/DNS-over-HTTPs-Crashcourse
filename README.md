@@ -103,3 +103,5 @@ await fetch("https://dns.google/dns-query?dns=AAABAAABAAAAAAAAA3d3dw1zbmlja2VyZG
 
 > [!Important]
 > You will run into [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) issues with some DoH servers. In that case your best course of action is probably to use a [CORS proxy](https://httptoolkit.com/blog/cors-proxies/) for your application. 
+
+Now you have the knowledge necessary to construct DWF-compatible queries yourself so that you can leverage all of the benefits of DoH in your applications. However, you can also use the [`dns-packet`](https://github.com/mafintosh/dns-packet) library which has already gone through the trouble of abstracting everything we have talked about here in a succinct js module that can used directly in your website. 
