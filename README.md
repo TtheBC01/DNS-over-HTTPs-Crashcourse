@@ -90,7 +90,5 @@ await fetch("https://dns.google/dns-query?dns=AAABAAABAAAAAAAAA3d3dw1zbmlja2VyZG
 })
 ```
 
-Now, once you recieve a response, you will want to match the ID bits in the 
-very first frame of the header. Next, you'll want to inspect the number 
-of answers returned in the answer field; this is were you'll extract
-the info you requested. 
+> [!Important]
+> You will run into [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) issues with some DoH servers. In that case your best course of action is probably to use a [CORS proxy](https://httptoolkit.com/blog/cors-proxies/) for your application. 
