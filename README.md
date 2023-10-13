@@ -46,13 +46,13 @@ Next, the query field carries the information needed to pass along a complete qu
 
 The first `n` frames encode the domain name, called the [`QNAME`](https://datatracker.ietf.org/doc/html/rfc1035#section-4.1.2), which the query is about. A domain name (like www.snickerdoodle.com) is written like this:
 
-`3www13snickerdoodle3com0`
+`<span style="color:blue">3</span>www<span style="color:blue">13</span>snickerdoodle<span style="color:blue">3</span>com<span style="color:blue">0</span>`
 
 or in hex encoding like this:
 
 `03 77 77 77 0d 73 6e 69 63 6b 65 72 64 6f 6f 64 6c 65 03 63 6f 6d 00`
 
-The numbers tell the message reciever how to read the `QNAME` which is terminated with a byte of zeros. 
+The numbers tell the message receiver how to read the `QNAME` which is terminated with a byte of zeros. 
 
 > [!NOTE] 
 > The `QNAME` field does not need to be an integer number of frames, i.e, its length may be an odd number of bytes. There is no padding requried to fill out a full frame. 
